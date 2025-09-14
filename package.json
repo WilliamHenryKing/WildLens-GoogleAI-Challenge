@@ -7,14 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "serve -s dist -l tcp://0.0.0.0:${PORT}"
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@google/genai": "^1.17.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-globe.gl": "^2.32.7",
-    "serve": "^14.2.5",
     "three": "^0.168.0"
   },
   "devDependencies": {

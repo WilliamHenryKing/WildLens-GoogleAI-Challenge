@@ -9,7 +9,40 @@ if (!API_KEY) {
   throw new Error("API_KEY environment variable not set.");
 }
 
-const ai = new GoogleGenAI({ apiKey: API_KEY });
+const ai = {
+  responses: {
+    generate: async (args: any) => {
+      const r = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "responses.generate", args }),
+      });
+      if (!r.ok) throw new Error(`Backend error: ${r.status}`);
+      // backend returns { text }
+      return await r.json();
+    },
+  },
+  chats: {
+    create: ({ model, config, history }: any) => ({
+      sendMessage: async ({ message }: any) => {
+        const r = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            mode: "chats.sendMessage",
+            model,
+            config,
+            history,
+            message,
+          }),
+        });
+        if (!r.ok) throw new Error(`Backend error: ${r.status}`);
+        // backend returns { text }
+        return await r.json();
+      },
+    }),
+  },
+} as any;
 
 const fileToGenerativePart = async (file: File) => {
   const base64EncodedDataPromise = new Promise<string>((resolve) => {
