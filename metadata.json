@@ -1,0 +1,8 @@
+{
+  "name": "Echo Location",
+  "description": "Echo Location is an AI-driven conservation quest that transforms you into an Eco-Scout. Your sightings of animals, plants, and ecosystems help you learn about wildlife, understand their conservation status, and take on real-world missions to protect our planet.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
